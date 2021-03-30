@@ -22,14 +22,17 @@ namespace SimpleExample.WebApi.Controllers
         }
 
         [HttpPost]
-        public async void AddCustomer(CustomerModel customerModel)
+        [Route("add-customer")]
+        public async Task<object> AddCustomer(CustomerModel customerModel)
         {
             Customer newCustomer = new Customer(customerModel.FirstName, customerModel.LastName, customerModel.Age);
             _customerRepository.Add(newCustomer);
-            Ok(await _customerRepository.Save());
+            await _customerRepository.Save();
+            return new { customerId = newCustomer.Id };
         }
 
         [HttpDelete("{customerId:guid}")]
+        [Route("delete-customer")]
         public async void DeleteCustomer(Guid customerId)
         {
             _customerRepository.Delete(await _customerRepository.Get(customerId));
