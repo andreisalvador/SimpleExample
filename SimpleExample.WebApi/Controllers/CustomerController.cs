@@ -31,7 +31,7 @@ namespace SimpleExample.WebApi.Controllers
             return new { customerId = newCustomer.Id };
         }
 
-        [HttpDelete("{customerId:guid}")]
+        [HttpDelete]
         [Route("delete-customer")]
         public async void DeleteCustomer(Guid customerId)
         {
